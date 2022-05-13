@@ -24,10 +24,10 @@ import com.aangles.cmestas.myquispeyn.R
 import com.aangles.cmestas.myquispeyn.navigation.AppScreens
 
 @Composable
-fun SecondScreen(navController: NavController, text: String?){
-    Scaffold {
-        Column() {
-            TopAppBar(){
+fun SecondScreen(navController: NavController, text: String?) {
+    Scaffold(
+        topBar = {
+            TopAppBar() {
                 Icon(
                     imageVector = Icons.Default.ArrowBack,
                     contentDescription = "Arrow back",
@@ -38,10 +38,11 @@ fun SecondScreen(navController: NavController, text: String?){
                 Spacer(modifier = Modifier.width(10.dp))
                 Text(text = "Segunda pantalla")
             }
-            SecondBodyContent(navController, text)
         }
-    }}
-
+    ) {
+        SecondBodyContent(navController, text)
+    }
+}
 @Composable
 fun SecondBodyContent(navController: NavController, text: String?){
     Column(

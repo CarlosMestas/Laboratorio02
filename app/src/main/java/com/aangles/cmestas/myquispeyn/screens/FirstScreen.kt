@@ -28,13 +28,14 @@ import com.aangles.cmestas.myquispeyn.navigation.AppScreens
 
 @Composable
 fun FirstScreen(navController: NavController){
-    Scaffold {
-        Column {
+    Scaffold(
+        topBar = {
             TopAppBar(){
                 Text(text = "Primera pantalla")
             }
-            MediaList(navController)
         }
+    ) {
+        MediaList(navController)
     }
 }
 
