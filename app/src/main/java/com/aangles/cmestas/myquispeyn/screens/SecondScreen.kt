@@ -87,7 +87,7 @@ fun MyComponent(_message: MyMessage, navController: NavController){
         //MyImage(_message, navController)
     }
     Row(modifier = Modifier
-        .padding(20.dp)
+        .padding(10.dp)
         .background(MaterialTheme.colors.background)){
         //MyImage(_message, navController)
         MyTexts(_message)
@@ -109,7 +109,7 @@ fun MyTexts(_message: MyMessage){
             MaterialTheme.colors.primary,
             MaterialTheme.typography.subtitle1
         )
-        Spacer(modifier = Modifier.height(15.dp))
+        Spacer(modifier = Modifier.height(10.dp))
         MyText(
             _message.body,
             MaterialTheme.colors.onBackground,
