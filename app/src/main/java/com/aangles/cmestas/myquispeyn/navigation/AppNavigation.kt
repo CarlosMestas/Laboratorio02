@@ -1,18 +1,21 @@
 package com.aangles.cmestas.myquispeyn.navigation
 
 import androidx.compose.runtime.Composable
+import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.aangles.cmestas.myquispeyn.screens.FirstScreen
+import com.aangles.cmestas.myquispeyn.screens.HomeScreen
 import com.aangles.cmestas.myquispeyn.screens.SecondScreen
 
 @Composable
-fun AppNavigation(){
-    val navController = rememberNavController()
-    NavHost(navController = navController, startDestination = AppScreens.FirstScreen.route){
+fun AppNavigation(navController: NavHostController){
+    NavHost(navController = navController, startDestination = AppScreens.HomeScreen.route){
+        composable(route = AppScreens.HomeScreen.route){
+            HomeScreen(navController)
+        }
         composable(route = AppScreens.FirstScreen.route){
             FirstScreen(navController)
         }

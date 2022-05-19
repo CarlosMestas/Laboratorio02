@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Laboratorio02</string>
+    <string name="title_pantalla1">Inicio</string>
+
 </resources>

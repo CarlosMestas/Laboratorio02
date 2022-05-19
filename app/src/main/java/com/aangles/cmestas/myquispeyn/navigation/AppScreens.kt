@@ -1,6 +1,17 @@
 package com.aangles.cmestas.myquispeyn.navigation
 
-sealed class AppScreens(val route:String){
-    object FirstScreen: AppScreens("first_screen")
-    object SecondScreen: AppScreens("second_screen")
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.List
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.ui.graphics.vector.ImageVector
+
+sealed class AppScreens(
+    val route:String,
+    val title: String,
+    val icon: ImageVector
+    ){
+    object HomeScreen: AppScreens("home_screen", "Inicio", Icons.Filled.Home)
+    object FirstScreen: AppScreens("first_screen", "Ver por regiones", Icons.Filled.Search)
+    object SecondScreen: AppScreens("second_screen","Parqueos disponibles", Icons.Filled.List)
 }
