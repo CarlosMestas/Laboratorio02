@@ -6,22 +6,20 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.aangles.cmestas.myquispeyn.R
-import com.aangles.cmestas.myquispeyn.navigation.AppScreens
 
 @Composable
 fun SecondScreen(navController: NavController, text: String?) {
@@ -35,8 +33,7 @@ fun SecondScreen(navController: NavController, text: String?) {
                         navController.popBackStack()
                     }
                 )
-                Spacer(modifier = Modifier.width(10.dp))
-                Text(text = "Segunda pantalla")
+                Text(text = "Lista de Parqueos")
             }
         }
     ) {
@@ -45,18 +42,23 @@ fun SecondScreen(navController: NavController, text: String?) {
 }
 @Composable
 fun SecondBodyContent(navController: NavController, text: String?){
+    Box(modifier = Modifier
+        .fillMaxWidth(),
+        contentAlignment = Alignment.Center
+    ) {
+        text?.let{ Text("Parqueos en la Ciudad de \n" + it,
+                fontSize = 25.sp,
+                color = MaterialTheme.colors.primary,
+                style = MaterialTheme.typography.subtitle1,
+                textAlign = TextAlign.Center,
+                maxLines = 2,
+        )}
+    }
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = Modifier.fillMaxHeight(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ){
-        Text("Parqueos en la Ciudad de",
-            style = MaterialTheme.typography.h5
-        )
-        text?.let{
-            Text(it,
-                style = MaterialTheme.typography.h5)
-        }
 
         Row(){
             MyMessages(myList, navController );}
@@ -84,17 +86,32 @@ fun MyMessages(_messages: List<MyMessage>, navController: NavController){
 @Composable
 fun MyComponent(_message: MyMessage, navController: NavController){
     Column (modifier = Modifier
-        .padding(10.dp)){
+            .fillMaxWidth()
+            .padding(10.dp)){
         //MyImage(_message, navController)
     }
     Row(modifier = Modifier
-        .padding(10.dp)
-        .background(MaterialTheme.colors.background)){
-        //MyImage(_message, navController)
+        .padding(10.dp)){
         MyTexts(_message)
+        BottonMapa(navController)
     }
 }
 
+@Composable
+fun BottonMapa(navController: NavController){
+    Box(modifier = Modifier
+        .height(50.dp)
+        .fillMaxWidth(),
+        contentAlignment = Alignment.Center
+    ) {
+        IconButton(onClick = { navController.popBackStack() }) {
+            Image(
+                painter = painterResource(id = R.drawable.ic_arrow_direction_gps_location),
+                contentDescription = "Ir mapa"
+            )
+        }
+    }
+}
 
 @Composable
 fun MyTexts(_message: MyMessage){
@@ -102,12 +119,13 @@ fun MyTexts(_message: MyMessage){
     Column(
         modifier = Modifier
             .padding(start = 7.dp)
+            .width(300.dp)
             .clickable {
                 expanded = !expanded
             }) {
         MyText(
             _message.title,
-            MaterialTheme.colors.primary,
+            MaterialTheme.colors.primaryVariant,
             MaterialTheme.typography.subtitle1
         )
         Spacer(modifier = Modifier.height(10.dp))
@@ -124,7 +142,6 @@ fun MyTexts(_message: MyMessage){
 fun MyText(_text: String, _color: Color, _style: TextStyle, _lines: Int = Int.MAX_VALUE){
     Text(_text, color = _color, style = _style, maxLines = _lines)
 }
-
 
 
 

@@ -19,6 +19,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.aangles.cmestas.myquispeyn.R
 import com.aangles.cmestas.myquispeyn.clases.CajaItem
@@ -31,7 +32,7 @@ fun FirstScreen(navController: NavController){
     Scaffold(
         topBar = {
             TopAppBar(){
-                Text(text = "Primera pantalla")
+                Text(text = "Lista de Regiones")
             }
         }
     ) {
@@ -43,12 +44,28 @@ fun FirstScreen(navController: NavController){
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MediaList(navController: NavController) {
-    LazyVerticalGrid(
-        contentPadding = PaddingValues(2.dp),
-        cells = GridCells.Adaptive(150.dp)
+    Column(
+        modifier = Modifier.fillMaxSize(),
+        verticalArrangement = Arrangement.Center,
+        horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        items(getItem()) { item ->
-            CajaListItem(navController, item, Modifier.padding(dimensionResource(R.dimen.padding_medium)))
+        Text(
+            "REGIONES DEL PERÚ",
+            fontSize = 25.sp,
+            color = MaterialTheme.colors.primary,
+            style = MaterialTheme.typography.subtitle2,
+        )
+        LazyVerticalGrid(
+            contentPadding = PaddingValues(2.dp),
+            cells = GridCells.Adaptive(150.dp)
+        ) {
+            items(getItem()) { item ->
+                CajaListItem(
+                    navController,
+                    item,
+                    Modifier.padding(dimensionResource(R.dimen.padding_medium))
+                )
+            }
         }
     }
 }
@@ -74,20 +91,20 @@ fun CajaListItem(navController: NavController,item: CajaItem, modifier: Modifier
                     painter = rememberImagePainter(
                         data= item.thumb
                     ),
-                    contentDescription = null,
                     modifier = Modifier.fillMaxSize(),
-                    contentScale = ContentScale.Crop
+                    contentScale = ContentScale.Inside,
+                    contentDescription = null,
                 )
             }
             Box(contentAlignment = Alignment.Center,
                 modifier = Modifier
                     .fillMaxWidth()
                     .background(MaterialTheme.colors.secondary)
-                    .padding(16.dp)
+                    .padding(16.dp, 5.dp)
             ) {
                 Text(
                     text = item.name,
-                    style = MaterialTheme.typography.h6
+                    style = MaterialTheme.typography.body2
                 )
             }
         }
