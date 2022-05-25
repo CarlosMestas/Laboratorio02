@@ -24,8 +24,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.sp
 import coil.compose.rememberImagePainter
 import com.aangles.cmestas.myquispeyn.R
-import com.aangles.cmestas.myquispeyn.clases.CajaItem
-import com.aangles.cmestas.myquispeyn.clases.getItem
 import com.aangles.cmestas.myquispeyn.navigation.AppScreens
 
 

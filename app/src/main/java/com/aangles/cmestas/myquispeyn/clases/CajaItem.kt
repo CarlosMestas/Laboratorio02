@@ -1,5 +1,53 @@
 package com.aangles.cmestas.myquispeyn.clases
 
+import android.util.Log
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+
+val db = Firebase.firestore
+
+/*
+fun getItem() = (1 .. myList.size).map{
+    myList[it -1].id?.let { it1 ->
+        myList[it -1].name?.let { it2 ->
+            myList[it -1].thumb?.let { it3 ->
+                CajaItem(
+                    id = it1,
+                    name = it2,
+                    thumb = it3
+                )
+            }
+        }
+    }
+}
+
+fun addItem(item: MyItem){
+    myList.add(item)
+    Log.w("test oli", "${item.toString()}")
+}
+*/
+
+data class MyItem(
+    val id: String ?=null,
+    val name: String ?=null,
+    val thumb: String ?=null
+){
+    constructor(): this("","","")
+
+}
+
+//private val myList: MutableList<MyItem> = mutableListOf()
+
+
+/*
+
+package com.aangles.cmestas.myquispeyn.clases
+
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
+
+val db = Firebase.firestore
+
 data class CajaItem(
     val id: Int,
     val name: String,
@@ -36,3 +84,6 @@ private val myList: List<MyItem> =
 
         )
 
+
+
+*/

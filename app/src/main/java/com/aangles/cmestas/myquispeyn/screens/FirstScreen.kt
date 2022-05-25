@@ -1,5 +1,6 @@
 package com.aangles.cmestas.myquispeyn.screens
 
+import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -18,32 +19,38 @@ import androidx.navigation.NavController
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.sp
+import coil.annotation.ExperimentalCoilApi
 import coil.compose.rememberImagePainter
 import com.aangles.cmestas.myquispeyn.R
-import com.aangles.cmestas.myquispeyn.clases.CajaItem
-import com.aangles.cmestas.myquispeyn.clases.getItem
+import com.aangles.cmestas.myquispeyn.clases.MyItem
 import com.aangles.cmestas.myquispeyn.navigation.AppScreens
 
 
 @Composable
-fun FirstScreen(navController: NavController){
+fun FirstScreen(
+    navController: NavController,
+    state: FirstScreenState,
+    isRefreshing: Boolean,
+    refreshData: ()->Unit){
+
     Scaffold(
         topBar = {
             TopAppBar(){
-                Text(text = "Lista de Regiones")
+                Text(text = "Primera pantalla")
             }
         }
     ) {
-        MediaList(navController)
+        MediaList(navController, state, isRefreshing, refreshData)
     }
 }
 
 //@Preview
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun MediaList(navController: NavController) {
+fun MediaList(navController: NavController, state: FirstScreenState, isRefreshing: Boolean, refreshData: ()->Unit) {
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
@@ -59,7 +66,9 @@ fun MediaList(navController: NavController) {
             contentPadding = PaddingValues(2.dp),
             cells = GridCells.Adaptive(150.dp)
         ) {
-            items(getItem()) { item ->
+            items(
+                items = state.regions
+            ) { item ->
                 CajaListItem(
                     navController,
                     item,
@@ -70,11 +79,12 @@ fun MediaList(navController: NavController) {
     }
 }
 
+@OptIn(ExperimentalCoilApi::class)
 @Composable
-fun CajaListItem(navController: NavController,item: CajaItem, modifier: Modifier = Modifier) {
+fun CajaListItem(navController: NavController, item: MyItem, modifier: Modifier = Modifier) {
     Card(
         modifier = modifier.clickable {
-            navController.navigate(route = AppScreens.SecondScreen.route + "/${item.name}")
+            navController.navigate(route = AppScreens.SecondScreen.route + "/${item.name}" + "/${item.id}")
         },
         elevation = 4.dp,
         shape = RoundedCornerShape(8.dp),
@@ -102,12 +112,13 @@ fun CajaListItem(navController: NavController,item: CajaItem, modifier: Modifier
                     .background(MaterialTheme.colors.secondary)
                     .padding(16.dp, 5.dp)
             ) {
-                Text(
-                    text = item.name,
-                    style = MaterialTheme.typography.body2
-                )
+                item.name?.let {
+                    Text(
+                        text = it,
+                        style = MaterialTheme.typography.body2
+                    )
+                }
             }
         }
     }
-
 }

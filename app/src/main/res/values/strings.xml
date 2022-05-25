@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Laboratorio02</string>
+    <string name="google_maps_key">AIzaSyBSzQOi7knCvL9qbtgdtUbrhPAQWHg2nuI</string>
     <string name="title_pantalla1">Inicio</string>
 
 </resources>
