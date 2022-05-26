@@ -18,10 +18,8 @@ constructor(
 ){
 
     fun getParkCarList(): Flow<Result<List<CarPark>>> = flow{
-//    fun getParkCarList(id: String): Flow<Result<List<CarPark>>> = flow{
         try{
             emit(Result.Loading<List<CarPark>>())
-//            val carParkList = carParkList.collection("carparks").whereEqualTo("regionId", id).get().await().map{document->
             val carParkList = carParkList.collection("carparks").get().await().map{document->
                 document.toObject(CarPark::class.java)
             }

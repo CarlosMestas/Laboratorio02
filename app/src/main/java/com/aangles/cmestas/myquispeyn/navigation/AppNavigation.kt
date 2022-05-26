@@ -45,9 +45,7 @@ fun AppNavigation(navController: NavHostController){
             val isRefreshing = viewModel.isRefreshing.collectAsState()
             val textA = it.arguments?.getString("text")
             val id = it.arguments?.getString("id")
-            /*if (textA != null) {
-                viewModel.regionId = textA
-            }*/
+
             SecondScreen(navController, textA, id, state, isRefreshing = isRefreshing.value, refreshData = viewModel::getParkCarList)
         }
         composable(route = AppScreens.ThirdScreen.route + "/{name}" + "/{address}" + "/{dateO}" + "/{dateC}" + "/{lat}" + "/{lon}",

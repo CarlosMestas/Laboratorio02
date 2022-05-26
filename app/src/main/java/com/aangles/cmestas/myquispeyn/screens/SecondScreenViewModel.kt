@@ -29,9 +29,6 @@ constructor(
     private val _isRefreshing = MutableStateFlow(false)
     val isRefreshing: StateFlow<Boolean> = _isRefreshing
 
-//    var regionId: String = ""
-
-
     init{
         getParkCarList()
     }
