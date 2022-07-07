@@ -9,11 +9,12 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.aangles.cmestas.myquispeyn.screens.FirstScreen
+import com.aangles.cmestas.myquispeyn.screens.regions.FirstScreen
 import com.aangles.cmestas.myquispeyn.screens.HomeScreen
-import com.aangles.cmestas.myquispeyn.screens.SecondScreen
-import com.aangles.cmestas.myquispeyn.screens.ThirdScreen
-import com.aangles.cmestas.myquispeyn.screens.*
+import com.aangles.cmestas.myquispeyn.screens.listParks.SecondScreen
+import com.aangles.cmestas.myquispeyn.screens.map.ThirdScreen
+import com.aangles.cmestas.myquispeyn.screens.listParks.SecondScreenViewModel
+import com.aangles.cmestas.myquispeyn.screens.regions.FirstScreenViewModel
 
 @ExperimentalMaterialApi
 @Composable

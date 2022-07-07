@@ -1,4 +1,4 @@
-package com.aangles.cmestas.myquispeyn.screens
+package com.aangles.cmestas.myquispeyn.screens.regions
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.aangles.cmestas.myquispeyn.repositories.RegionRepository
 import com.aangles.cmestas.myquispeyn.repositories.Result
+import com.aangles.cmestas.myquispeyn.screens.regions.FirstScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

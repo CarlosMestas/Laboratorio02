@@ -1,6 +1,5 @@
-package com.aangles.cmestas.myquispeyn.screens
+package com.aangles.cmestas.myquispeyn.screens.regions
 
-import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -19,7 +18,6 @@ import androidx.navigation.NavController
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.unit.sp
 import coil.annotation.ExperimentalCoilApi
