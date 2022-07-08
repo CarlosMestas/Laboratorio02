@@ -75,29 +75,5 @@
 
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="84dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <ImageButton
-                android:id="@+id/btnLocation"
-                android:layout_width="match_parent"
-                android:layout_height="31dp"
-                android:layout_weight="1"
-                app:srcCompat="@drawable/ic_arrow_direction_gps_location"
-                app:tint="#37FFFFFF"
-                tools:ignore="SpeakableTextPresentCheck" />
-
-            <ImageButton
-                android:id="@+id/btnFav"
-                android:layout_width="match_parent"
-                android:layout_height="67dp"
-                app:srcCompat="@android:drawable/btn_star_big_on"
-                tools:ignore="SpeakableTextPresentCheck" />
-
-        </LinearLayout>
-
     </LinearLayout>
 </LinearLayout>

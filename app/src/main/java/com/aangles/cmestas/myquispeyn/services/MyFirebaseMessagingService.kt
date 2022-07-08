@@ -12,6 +12,7 @@ import androidx.compose.material.ExperimentalMaterialApi
 import androidx.core.app.NotificationCompat
 import com.aangles.cmestas.myquispeyn.MainActivity
 import com.aangles.cmestas.myquispeyn.R
+import com.aangles.cmestas.myquispeyn.SecondActivity
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 
@@ -19,12 +20,10 @@ import com.google.firebase.messaging.RemoteMessage
 class MyFirebaseMessagingService:FirebaseMessagingService() {
 
     companion object {
-        private const val TAG = "FCM Notification"
         const val DEFAULT_NOTIFICATION_ID = 0
     }
 
     override fun onNewToken(token: String) {
-        Log.i(TAG, "new FCM token created: $token")
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         initNotificationChannel(notificationManager)
     }
@@ -36,10 +35,16 @@ class MyFirebaseMessagingService:FirebaseMessagingService() {
         //Para personalizar la notificación
         val notificationLayout = RemoteViews(packageName, R.layout.textview)
         val notificationLayoutExpanded = RemoteViews(packageName, R.layout.textviewexpanded)
-        //Activity
+        //Activity Main
         val intentNotif = Intent(this, MainActivity::class.java)
         intentNotif.flags = Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
         val pendIntent = PendingIntent.getActivity(this, 0, intentNotif, PendingIntent.FLAG_UPDATE_CURRENT)
+
+        //Second activity
+        val btnIntentNotifMap = Intent(this, SecondActivity::class.java)
+        btnIntentNotifMap.putExtra("EXTRA_ARG", "Boton presionado")
+        val pendIntentMap = PendingIntent.getActivity(this, 0, btnIntentNotifMap, PendingIntent.FLAG_UPDATE_CURRENT)
+
 
         val notificationManager = getSystemService(NOTIFICATION_SERVICE) as NotificationManager
         var notificationBuilder = if (Build.VERSION_CODES.O <= Build.VERSION.SDK_INT) {
@@ -49,14 +54,14 @@ class MyFirebaseMessagingService:FirebaseMessagingService() {
         }
         notificationBuilder = notificationBuilder
             .setSmallIcon(R.drawable.ic_parking_svgrepo_new)
-            .setContentTitle("Parqueo Nuevo")
-            .setTicker(getText(R.string.app_name))
-            .setContentText("Revisa si te interesa")
+            .setContentTitle(title)
+            .setContentText(body)
             .setStyle(NotificationCompat.DecoratedCustomViewStyle())
             .setCustomContentView(notificationLayout)
             .setCustomBigContentView(notificationLayoutExpanded)
             .setContentIntent(pendIntent)
-
+            .addAction(R.drawable.ic_arrow_direction_gps_location, "Ir a mapa", pendIntentMap )
+            .setAutoCancel(true)
 
         initNotificationChannel(notificationManager)
         notificationManager.notify(DEFAULT_NOTIFICATION_ID, notificationBuilder.build())
