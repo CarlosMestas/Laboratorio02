@@ -27,6 +27,7 @@ import coil.compose.rememberImagePainter
 import com.aangles.cmestas.myquispeyn.R
 import com.aangles.cmestas.myquispeyn.clases.MyItem
 import com.aangles.cmestas.myquispeyn.navigation.AppScreens
+import com.aangles.cmestas.myquispeyn.repositories.CarParkRepository
 import kotlinx.coroutines.launch
 
 
@@ -89,6 +90,7 @@ fun CajaListItem(navController: NavController, item: MyItem, modifier: Modifier 
     val scope = rememberCoroutineScope()
     Card(
         modifier = modifier.clickable {
+            regionIdFinal = item.id.toString()
             navController.navigate(route = AppScreens.SecondScreen.route + "/${item.name}" + "/${item.id}")
             scope.launch {
                 userManager.storeQuantityOfInteractionsRegions(q1 + 1)

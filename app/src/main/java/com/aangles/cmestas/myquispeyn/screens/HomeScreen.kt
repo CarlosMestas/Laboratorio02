@@ -33,6 +33,7 @@ import java.security.acl.Owner
 
 
 lateinit var userManager: UserManager
+lateinit var regionIdFinal: String
 
 @Composable
 fun HomeScreen(navController: NavController){

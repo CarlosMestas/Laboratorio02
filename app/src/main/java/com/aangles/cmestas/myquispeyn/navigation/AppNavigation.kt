@@ -1,5 +1,6 @@
 package com.aangles.cmestas.myquispeyn.navigation
 
+import android.util.Log
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
@@ -44,11 +45,16 @@ fun AppNavigation(navController: NavHostController){
                 }
             )
         ){
+            val textA = it.arguments?.getString("text")
+            val id = it.arguments?.getString("id")
             val viewModel: SecondScreenViewModel = hiltViewModel()
             val state = viewModel.state.value
             val isRefreshing = viewModel.isRefreshing.collectAsState()
-            val textA = it.arguments?.getString("text")
-            val id = it.arguments?.getString("id")
+            Log.d("TestAB", "hola $id")
+            if (id != null) {
+                viewModel.regionId2 = id
+                Log.d("TestAA", "hola $id")
+            }
 
             SecondScreen(navController, textA, id, state, isRefreshing = isRefreshing.value, refreshData = viewModel::getParkCarList)
         }

@@ -1,5 +1,6 @@
 package com.aangles.cmestas.myquispeyn.screens
 
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -21,13 +22,15 @@ class SecondScreenViewModel
 @Inject
 constructor(
     private val carParkRepository: CarParkRepository,
-    savedStateHandle: SavedStateHandle,
+    savedStateHandle: SavedStateHandle
 ): ViewModel(){
     private val _state: MutableState<SecondScreenState> = mutableStateOf(SecondScreenState())
     val state: State<SecondScreenState> = _state
 
     private val _isRefreshing = MutableStateFlow(false)
     val isRefreshing: StateFlow<Boolean> = _isRefreshing
+
+    var regionId2 = ""
 
     init{
         getParkCarList()

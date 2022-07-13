@@ -20,7 +20,6 @@ class UserManager(context: Context) {
         val GENDER_KEY :Preferences.Key<Boolean> = preferencesKey<Boolean>("GENDER")
         val QUANTITYOFINTERACTIONSREGIONS_KEY :Preferences.Key<Int> = preferencesKey<Int>("QUANTITYOFINTERACTIONSREGIONS_KEY")
         val QUANTITYOFINTERACTIONSGPS_KEY :Preferences.Key<Int> = preferencesKey<Int>("QUANTITYOFINTERACTIONSGPS")
-
     }
 
     suspend fun storeNickName(nickname: String){
