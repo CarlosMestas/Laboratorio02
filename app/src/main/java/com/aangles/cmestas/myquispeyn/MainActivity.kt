@@ -26,6 +26,7 @@ import com.aangles.cmestas.myquispeyn.components.BottomNavigationBar
 //import com.aangles.cmestas.myquispeyn.clases.addItem
 import com.aangles.cmestas.myquispeyn.navigation.AppNavigation
 import com.aangles.cmestas.myquispeyn.navigation.AppScreens
+import com.aangles.cmestas.myquispeyn.screens.PreferencesScreen
 //import com.aangles.cmestas.myquispeyn.screens.database
 import com.aangles.cmestas.myquispeyn.ui.theme.Laboratorio02Theme
 import com.google.firebase.database.*
@@ -55,7 +56,7 @@ fun MainHomeScreen() {
 
     val navigationItems = listOf(
         AppScreens.HomeScreen,
-        AppScreens.FirstScreen,
+        AppScreens.FirstScreen
     )
     Scaffold(
         bottomBar = { BottomNavigationBar(navController = navController, items = navigationItems) }

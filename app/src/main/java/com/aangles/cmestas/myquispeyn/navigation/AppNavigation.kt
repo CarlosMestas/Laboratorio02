@@ -22,6 +22,10 @@ fun AppNavigation(navController: NavHostController){
         composable(route = AppScreens.HomeScreen.route){
             HomeScreen(navController)
         }
+        composable(route = AppScreens.PreferencesScreen.route){
+            PreferencesScreen(navController)
+        }
+
         composable(
             route = AppScreens.FirstScreen.route
         ){
@@ -63,3 +67,4 @@ fun AppNavigation(navController: NavHostController){
         }
     }
 }
+

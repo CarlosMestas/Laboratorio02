@@ -1,8 +1,8 @@
 package com.aangles.cmestas.myquispeyn.screens
 
+import android.content.Context
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -14,6 +14,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
@@ -23,6 +24,8 @@ import androidx.navigation.NavController
 import com.aangles.cmestas.myquispeyn.R
 import com.aangles.cmestas.myquispeyn.clases.CarPark
 import com.aangles.cmestas.myquispeyn.navigation.AppScreens
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 
 @Composable
 fun SecondScreen(
@@ -33,6 +36,9 @@ fun SecondScreen(
     isRefreshing: Boolean,
     refreshData: ()->Unit
 ) {
+    val context = LocalContext.current
+    // a coroutine scope
+    val scope = rememberCoroutineScope()
     Scaffold(
         topBar = {
             TopAppBar() {
@@ -47,7 +53,7 @@ fun SecondScreen(
             }
         }
     ) {
-        SecondBodyContent(navController, text, id, state, isRefreshing, refreshData)
+        SecondBodyContent(navController, text, id, state, isRefreshing, refreshData, context, scope)
     }
 }
 @OptIn(ExperimentalFoundationApi::class)
@@ -58,7 +64,9 @@ fun SecondBodyContent(
     id: String?,
     state: SecondScreenState,
     isRefreshing: Boolean,
-    refreshData: () -> Unit
+    refreshData: () -> Unit,
+    context: Context,
+    scope: CoroutineScope
 ){
     Box(modifier = Modifier
         .fillMaxWidth(),
@@ -79,7 +87,7 @@ fun SecondBodyContent(
     ){
 
         Row(){
-                MyMessages(navController, state, id, isRefreshing, refreshData)
+                MyMessages(navController, state, id, isRefreshing, refreshData, context, scope)
             Row(){
                 Button(onClick = {
                     navController.popBackStack()
@@ -98,7 +106,9 @@ fun MyMessages(
     state: SecondScreenState,
     id: String?,
     isRefreshing: Boolean,
-    refreshData: () -> Unit
+    refreshData: () -> Unit,
+    context: Context,
+    scope: CoroutineScope
 ){
     LazyColumn(){
         items(
@@ -106,7 +116,7 @@ fun MyMessages(
         ){ item->
             if (item != null) {
                 if(id.equals(item.regionId))
-                    MyComponent(item, navController)
+                    MyComponent(item, navController, context, scope)
             }
         }
     }
@@ -114,7 +124,8 @@ fun MyMessages(
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun MyComponent(_message: CarPark, navController: NavController){
+fun MyComponent(_message: CarPark, navController: NavController,     context: Context,
+                scope: CoroutineScope){
     Column (modifier = Modifier
         .fillMaxWidth()
         .padding(10.dp)){
@@ -123,17 +134,19 @@ fun MyComponent(_message: CarPark, navController: NavController){
         .padding(20.dp))
     {
         MyTexts(_message)
-        BottonMapa(_message = _message, navController = navController)
+        BottonMapa(_message = _message, navController = navController, context, scope)
     }
 }
 
 @Composable
-fun BottonMapa(_message: CarPark, navController: NavController){
+fun BottonMapa(_message: CarPark, navController: NavController,     context: Context,
+               scope: CoroutineScope){
     Box(modifier = Modifier
         .height(50.dp)
         .fillMaxWidth(),
         contentAlignment = Alignment.Center
     ) {
+        val q2 =  userManager.quantityofinteractionsgps.collectAsState(initial = 0).value
         IconButton(
             onClick = {
                 navController.navigate(route = AppScreens.ThirdScreen.route
@@ -143,6 +156,9 @@ fun BottonMapa(_message: CarPark, navController: NavController){
                         + "/${_message.dateC}"
                         + "/${_message.lat}"
                         + "/${_message.lon}")
+                scope.launch {
+                    userManager.storeQuantityOfInteractionsGps(q2 + 1)
+                }
             }
         ) {
             Image(

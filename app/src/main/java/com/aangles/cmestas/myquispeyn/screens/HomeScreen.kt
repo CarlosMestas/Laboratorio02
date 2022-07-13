@@ -18,21 +18,38 @@ import androidx.navigation.NavController
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.asLiveData
 import coil.compose.rememberImagePainter
 import com.aangles.cmestas.myquispeyn.R
+import com.aangles.cmestas.myquispeyn.dataStore.UserManager
 import com.aangles.cmestas.myquispeyn.navigation.AppScreens
+import kotlinx.coroutines.flow.observeOn
+import java.security.acl.Owner
 
+
+lateinit var userManager: UserManager
 
 @Composable
 fun HomeScreen(navController: NavController){
     Scaffold {
         Column {
-            TopAppBar( ){
-                Text(text = "Bienvenido")
+            TopAppBar {
+                val context = LocalContext.current
+                val scope = rememberCoroutineScope()
+                userManager = UserManager(context)
+                var nicknameText = userManager.nicknameFlow.collectAsState(initial = "").value!!
+                var genderBolean = userManager.genderFlow.collectAsState(initial = 0).value!!
+                var gender:String = ""
+                if (genderBolean == true)
+                    gender = "o"
+                else
+                    gender = "a"
+                Text(text = "Bienvenid$gender $nicknameText")
             }
             MyComponent(navController = navController)
         }
@@ -63,7 +80,7 @@ fun MyComponent(navController: NavController){
 @Composable
 fun DatosApp(navController: NavController, modifier: Modifier = Modifier){
     Box(modifier = Modifier
-        .height(200.dp)
+        .height(250.dp)
         .fillMaxWidth(),
         contentAlignment = Alignment.Center
     ) {
@@ -101,6 +118,13 @@ fun DatosApp(navController: NavController, modifier: Modifier = Modifier){
                     navController.navigate(route = AppScreens.FirstScreen.route)
                 }){
                     Text("Ver Regiones",    style = MaterialTheme.typography.button)
+                }
+                Spacer(modifier = Modifier.height(12.dp))
+
+                Button(onClick = {
+                    navController.navigate(route = AppScreens.PreferencesScreen.route)
+                }){
+                    Text("Ver preferencias de usuario",    style = MaterialTheme.typography.button)
                 }
             }
         }

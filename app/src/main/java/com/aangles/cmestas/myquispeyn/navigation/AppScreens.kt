@@ -15,5 +15,6 @@ sealed class AppScreens(
     object FirstScreen: AppScreens("first_screen", "Ver por regiones", Icons.Filled.Search)
     object SecondScreen: AppScreens("second_screen","Parqueos disponibles", Icons.Filled.List)
     object ThirdScreen: AppScreens("third_screen","Parqueo en el mapa", Icons.Filled.List)
+    object PreferencesScreen: AppScreens("fourth_screen","Preferencias del usuario", Icons.Filled.List)
 
 }

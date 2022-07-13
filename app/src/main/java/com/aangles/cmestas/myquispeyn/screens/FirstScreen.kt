@@ -27,6 +27,7 @@ import coil.compose.rememberImagePainter
 import com.aangles.cmestas.myquispeyn.R
 import com.aangles.cmestas.myquispeyn.clases.MyItem
 import com.aangles.cmestas.myquispeyn.navigation.AppScreens
+import kotlinx.coroutines.launch
 
 
 @Composable
@@ -82,14 +83,22 @@ fun MediaList(navController: NavController, state: FirstScreenState, isRefreshin
 @OptIn(ExperimentalCoilApi::class)
 @Composable
 fun CajaListItem(navController: NavController, item: MyItem, modifier: Modifier = Modifier) {
+    val context = LocalContext.current
+    // a coroutine scope
+    val q1 =  userManager.quantityofinteractionsregions.collectAsState(initial = 0).value
+    val scope = rememberCoroutineScope()
     Card(
         modifier = modifier.clickable {
             navController.navigate(route = AppScreens.SecondScreen.route + "/${item.name}" + "/${item.id}")
+            scope.launch {
+                userManager.storeQuantityOfInteractionsRegions(q1 + 1)
+            }
         },
         elevation = 4.dp,
         shape = RoundedCornerShape(8.dp),
         backgroundColor = MaterialTheme.colors.secondary
     ) {
+
         Column(
             modifier = modifier
         ){
