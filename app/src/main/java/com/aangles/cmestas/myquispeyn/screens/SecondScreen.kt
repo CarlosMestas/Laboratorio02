@@ -83,26 +83,21 @@ fun SecondBodyContent(
             textAlign = TextAlign.Center,
             maxLines = 2,
         )}
-            Column(
-                modifier = Modifier.fillMaxHeight(),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ){
-
-                Row(){
-                    MyMessages(navController, state, id, isRefreshing, refreshData, context, scope)
-                    Row(){
-                        Button(onClick = {
-                            navController.popBackStack()
-                        }){
-                            Text("Volver")
-                        }
-                    }
+        LazyColumn(
+            contentPadding = PaddingValues(2.dp)
+        ) {
+            items(
+                items = state.carparks
+            ){ item->
+                if (item != null) {
+                    if(id.equals(item.regionId))
+                        MyComponent(item, navController, context, scope)
                 }
             }
+        }
 
     }
 }
-//            MyMessages(navController, state, id, isRefreshing, refreshData)
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun MyMessages(
