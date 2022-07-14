@@ -1,6 +1,7 @@
 package com.aangles.cmestas.myquispeyn.screens
 
 import android.content.Context
+import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -24,11 +25,24 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.paging.PagingData
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.collectAsLazyPagingItems
+import androidx.room.Database
+import androidx.room.Room
 import com.aangles.cmestas.myquispeyn.R
 import com.aangles.cmestas.myquispeyn.clases.CarPark
+import com.aangles.cmestas.myquispeyn.data.local.DataBaseDB
+import com.aangles.cmestas.myquispeyn.data.local.dao.CarParkDBDao
 import com.aangles.cmestas.myquispeyn.navigation.AppScreens
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
+import kotlin.reflect.KFunction0
+
+private lateinit var dao: CarParkDBDao
+private lateinit var db: DataBaseDB
 
 @Composable
 fun SecondScreen(

@@ -7,22 +7,45 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.cachedIn
+import com.aangles.cmestas.myquispeyn.clases.CarPark
+import com.aangles.cmestas.myquispeyn.paging.CarParkPagingSource
+//import com.aangles.cmestas.myquispeyn.paging.UseCases
 import com.aangles.cmestas.myquispeyn.repositories.CarParkRepository
 import com.aangles.cmestas.myquispeyn.repositories.RegionRepository
 import com.aangles.cmestas.myquispeyn.repositories.Result
+import com.google.firebase.firestore.Query
 import dagger.hilt.android.lifecycle.HiltViewModel
-import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.launchIn
-import kotlinx.coroutines.flow.onEach
+import kotlinx.coroutines.flow.*
 import javax.inject.Inject
+/*
+class SecondScreenViewModel
+constructor(
+    private val carParkPagingSource: CarParkPagingSource
+   // useCases: UseCases
+): ViewModel(){
+
+    fun getCarParks(): Flow<PagingData<CarPark>> {
+        return Pager(PagingConfig(50)) {
+            carParkPagingSource
+        }.flow
+    }
+
+}
+*/
+
 
 @HiltViewModel
 class SecondScreenViewModel
 @Inject
 constructor(
     private val carParkRepository: CarParkRepository,
-    savedStateHandle: SavedStateHandle
+    savedStateHandle: SavedStateHandle,
+    private val query: Query
+   // useCases: UseCases
 ): ViewModel(){
     private val _state: MutableState<SecondScreenState> = mutableStateOf(SecondScreenState())
     val state: State<SecondScreenState> = _state
@@ -35,6 +58,7 @@ constructor(
     init{
         getParkCarList()
     }
+
 
     fun getParkCarList(){
         carParkRepository.getParkCarList().onEach { result->
@@ -51,5 +75,20 @@ constructor(
             }
         }.launchIn(viewModelScope)
     }
+
+    fun getAllCarParks(){
+        val carParks: Flow<PagingData<CarPark>> = Pager(PagingConfig(pageSize = 5)) {
+            CarParkPagingSource(query)
+        }.flow
+    }
+
+    fun getAll(): Flow<PagingData<CarPark>>{
+        return carParks
+    }
+
+    val carParks: Flow<PagingData<CarPark>> = Pager(PagingConfig(pageSize = 5)) {
+        CarParkPagingSource(query)
+    }.flow
+
 
 }

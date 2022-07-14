@@ -1,6 +1,10 @@
 package com.aangles.cmestas.myquispeyn.di
 
+import androidx.paging.PagingConfig
+import com.aangles.cmestas.myquispeyn.paging.*
+import com.aangles.cmestas.myquispeyn.screens.regionIdFinal
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.firestore.Query
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -12,7 +16,13 @@ import javax.inject.Singleton
 class AppModule {
 
     @Provides
-    @Singleton
     fun provideFireStoreInstance() = FirebaseFirestore.getInstance()
+
+    @Provides
+    @Singleton
+    fun provideQueryCarParksByName() = FirebaseFirestore.getInstance()
+        .collection("CarPark")
+        .orderBy("name", Query.Direction.ASCENDING)
+        .limit(5.toLong())
 
 }
