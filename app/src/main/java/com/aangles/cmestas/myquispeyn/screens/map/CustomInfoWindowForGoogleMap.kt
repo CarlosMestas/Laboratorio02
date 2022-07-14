@@ -1,4 +1,4 @@
-package com.aangles.cmestas.myquispeyn.screens
+package com.aangles.cmestas.myquispeyn.screens.map
 
 import android.app.Activity
 import android.content.Context

@@ -1,4 +1,4 @@
-package com.aangles.cmestas.myquispeyn.screens
+package com.aangles.cmestas.myquispeyn.screens.listParks
 
 import com.aangles.cmestas.myquispeyn.clases.CarPark
 import com.aangles.cmestas.myquispeyn.clases.MyItem

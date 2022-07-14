@@ -1,6 +1,5 @@
-package com.aangles.cmestas.myquispeyn.screens
+package com.aangles.cmestas.myquispeyn.screens.listParks
 
-import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
@@ -10,13 +9,12 @@ import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
-import androidx.paging.cachedIn
 import com.aangles.cmestas.myquispeyn.clases.CarPark
 import com.aangles.cmestas.myquispeyn.paging.CarParkPagingSource
 //import com.aangles.cmestas.myquispeyn.paging.UseCases
 import com.aangles.cmestas.myquispeyn.repositories.CarParkRepository
-import com.aangles.cmestas.myquispeyn.repositories.RegionRepository
 import com.aangles.cmestas.myquispeyn.repositories.Result
+import com.aangles.cmestas.myquispeyn.screens.listParks.SecondScreenState
 import com.google.firebase.firestore.Query
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.*

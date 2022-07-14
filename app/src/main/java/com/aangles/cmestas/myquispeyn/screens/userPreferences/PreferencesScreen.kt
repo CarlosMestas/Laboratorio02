@@ -1,4 +1,4 @@
-package com.aangles.cmestas.myquispeyn.screens
+package com.aangles.cmestas.myquispeyn.screens.userPreferences
 
 import android.content.Context
 import androidx.compose.foundation.Image
@@ -16,8 +16,8 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.aangles.cmestas.myquispeyn.R
-import com.aangles.cmestas.myquispeyn.dataStore.UserManager
 import com.aangles.cmestas.myquispeyn.navigation.AppScreens
+import com.aangles.cmestas.myquispeyn.screens.userManager
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 

@@ -1,9 +1,13 @@
 package com.aangles.cmestas.myquispeyn.di
 
-import androidx.paging.PagingConfig
+import android.app.Application
+import androidx.room.Room
 import com.aangles.cmestas.myquispeyn.paging.*
-import com.aangles.cmestas.myquispeyn.screens.regionIdFinal
+import com.aangles.cmestas.myquispeyn.utils.DATABASE_NAME
 import com.google.firebase.firestore.FirebaseFirestore
+import com.aangles.cmestas.myquispeyn.data.local.DataBaseDB
+import com.aangles.cmestas.myquispeyn.data.repository.CarParkDBRepository
+import com.aangles.cmestas.myquispeyn.data.repository.CarParkDBRepositoryImpl
 import com.google.firebase.firestore.Query
 import dagger.Module
 import dagger.Provides
@@ -25,4 +29,17 @@ class AppModule {
         .orderBy("name", Query.Direction.ASCENDING)
         .limit(5.toLong())
 
+    @Provides
+    @Singleton
+    fun provideDatabase(app: Application) = Room.databaseBuilder(
+        app,
+        DataBaseDB::class.java,
+        DATABASE_NAME
+    ).fallbackToDestructiveMigration().build()
+
+    @Provides
+    @Singleton
+    fun provideRepository2(db: DataBaseDB): CarParkDBRepository {
+        return CarParkDBRepositoryImpl(db.carParkDao())
+    }
 }

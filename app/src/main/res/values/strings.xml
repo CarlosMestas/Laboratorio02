@@ -2,5 +2,14 @@
     <string name="app_name">Laboratorio02</string>
     <string name="google_maps_key">AIzaSyBSzQOi7knCvL9qbtgdtUbrhPAQWHg2nuI</string>
     <string name="title_pantalla1">Inicio</string>
-
+    <string name="name">Nombre:</string>
+    <string name="add_carPark">Agregar parqueo</string>
+    <string name="carParks">Parqueos Visitados</string>
+    <string name="address">Dirección</string>
+    <string name="latitude">Latitud</string>
+    <string name="longitude">Longitud</string>
+    <string name="hourC">Hora cierre</string>
+    <string name="hourB">Hora inicio</string>
+    <string name="modifier_user">Modificar usuario</string>
+    <string name="modifier_carPark">Modificar parqueo</string>
 </resources>

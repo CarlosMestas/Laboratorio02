@@ -1,6 +1,5 @@
-package com.aangles.cmestas.myquispeyn.screens
+package com.aangles.cmestas.myquispeyn.screens.regions
 
-import android.widget.Toast
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -27,7 +26,8 @@ import coil.compose.rememberImagePainter
 import com.aangles.cmestas.myquispeyn.R
 import com.aangles.cmestas.myquispeyn.clases.MyItem
 import com.aangles.cmestas.myquispeyn.navigation.AppScreens
-import com.aangles.cmestas.myquispeyn.repositories.CarParkRepository
+import com.aangles.cmestas.myquispeyn.screens.regionIdFinal
+import com.aangles.cmestas.myquispeyn.screens.userManager
 import kotlinx.coroutines.launch
 
 
