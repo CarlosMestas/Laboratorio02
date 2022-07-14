@@ -103,29 +103,6 @@ fun SecondBodyContent(
 }
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun MyMessages(
-    navController: NavController,
-    state: SecondScreenState,
-    id: String?,
-    isRefreshing: Boolean,
-    refreshData: () -> Unit,
-    context: Context,
-    scope: CoroutineScope
-){
-    LazyColumn(){
-        items(
-            items = state.carparks
-        ){ item->
-            if (item != null) {
-                if(id.equals(item.regionId))
-                    MyComponent(item, navController, context, scope)
-            }
-        }
-    }
-}
-
-@OptIn(ExperimentalFoundationApi::class)
-@Composable
 fun MyComponent(_message: CarPark, navController: NavController,     context: Context,
                 scope: CoroutineScope){
     Column (modifier = Modifier
