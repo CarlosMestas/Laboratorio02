@@ -63,7 +63,7 @@ fun MyComponent(navController: NavController){
         .padding(10.dp))
     {
         Box(modifier = Modifier
-            .height(150.dp)
+            .height(130.dp)
             .fillMaxWidth()
         ) {
             Image(
