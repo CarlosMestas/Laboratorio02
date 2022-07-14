@@ -105,7 +105,7 @@ fun CajaListItem(navController: NavController, item: MyItem, modifier: Modifier 
             modifier = modifier
         ){
             Box(modifier = Modifier
-                .height(150.dp)
+                .height(160.dp)
                 .fillMaxWidth()
             ) {
                 Image(
