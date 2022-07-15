@@ -61,21 +61,6 @@ fun EditCommentScreen(
                 dateO = dateOState.text,
                 onEvent = { viewModel.onEvent(it) }
             )
-        },
-        bottomBar = {
-            if (id != null) {
-                EditBottomBar(
-                    id,
-                    onInsertCarPark = { viewModel.onEvent(Edit2Event.InsertCarPark) }
-                )
-            }
-            else{
-                EditBottomBar(
-                    -1,
-                    onInsertCarPark = { viewModel.onEvent(Edit2Event.InsertCarPark) }
-                )
-            }
-
         }
     )
 }
@@ -138,24 +123,5 @@ fun EditContent(
             hint = stringResource(id = R.string.hourB),
             onTextChange = { onEvent(Edit2Event.EnteredDateO(it)) }
         )
-    }
-}
-
-@Composable
-fun EditBottomBar(
-    text: Int,
-    modifier: Modifier = Modifier,
-    onInsertCarPark: () -> Unit
-) {
-    Button(
-        modifier = modifier
-            .fillMaxWidth()
-            .padding(10.dp, 10.dp, 10.dp, 75.dp),
-        onClick = { onInsertCarPark() }
-    ) {
-        if(text == -1)
-            Text(text = stringResource(id = R.string.add_carPark))
-        else
-            Text(text = stringResource(id = R.string.modifier_carPark))
     }
 }

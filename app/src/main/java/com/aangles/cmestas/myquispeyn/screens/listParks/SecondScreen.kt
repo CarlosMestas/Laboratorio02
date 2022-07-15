@@ -20,18 +20,19 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.aangles.cmestas.myquispeyn.R
 import com.aangles.cmestas.myquispeyn.clases.CarPark
 import com.aangles.cmestas.myquispeyn.data.local.DataBaseDB
 import com.aangles.cmestas.myquispeyn.data.local.dao.CarParkDBDao
 import com.aangles.cmestas.myquispeyn.navigation.AppScreens
+import com.aangles.cmestas.myquispeyn.screens.historial.edit.Edit2Event
+import com.aangles.cmestas.myquispeyn.screens.historial.edit.Edit2ViewModel
 import com.aangles.cmestas.myquispeyn.screens.userManager
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-
-private lateinit var dao: CarParkDBDao
-private lateinit var db: DataBaseDB
 
 @Composable
 fun SecondScreen(
@@ -40,11 +41,13 @@ fun SecondScreen(
     id: String?,
     state: SecondScreenState,
     isRefreshing: Boolean,
-    refreshData: ()->Unit
-) {
+    refreshData: ()->Unit,
+    viewModel: Edit2ViewModel = hiltViewModel()
+    ) {
     val context = LocalContext.current
     // a coroutine scope
     val scope = rememberCoroutineScope()
+
     Scaffold(
         topBar = {
             TopAppBar() {
@@ -59,7 +62,11 @@ fun SecondScreen(
             }
         }
     ) {
-        SecondBodyContent(navController, text, id, state, isRefreshing, refreshData, context, scope)
+        SecondBodyContent(navController, text, id, state, isRefreshing, refreshData, context, scope,
+            onEvent = { viewModel.onEvent(it) },
+            onInsertCarPark = { viewModel.onEvent(Edit2Event.InsertCarPark) }
+
+        )
     }
 }
 @OptIn(ExperimentalFoundationApi::class)
@@ -72,7 +79,10 @@ fun SecondBodyContent(
     isRefreshing: Boolean,
     refreshData: () -> Unit,
     context: Context,
-    scope: CoroutineScope
+    scope: CoroutineScope,
+    onEvent: (Edit2Event) -> Unit,
+    onInsertCarPark: () -> Unit
+
 ){
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -94,7 +104,8 @@ fun SecondBodyContent(
             ){ item->
                 if (item != null) {
                     if(id.equals(item.regionId))
-                        MyComponent(item, navController, context, scope)
+                        MyComponent(item, navController, context, scope,
+                            onEvent, onInsertCarPark )
                 }
             }
         }
@@ -103,8 +114,11 @@ fun SecondBodyContent(
 }
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun MyComponent(_message: CarPark, navController: NavController,     context: Context,
-                scope: CoroutineScope){
+fun MyComponent(_message: CarPark, navController: NavController, context: Context,
+                scope: CoroutineScope,
+                onEvent: (Edit2Event) -> Unit,
+                onInsertCarPark: () -> Unit
+){
     Column (modifier = Modifier
         .fillMaxWidth()
         .padding(10.dp)){
@@ -113,13 +127,19 @@ fun MyComponent(_message: CarPark, navController: NavController,     context: Co
         .padding(10.dp))
     {
         MyTexts(_message)
-        BottonMapa(_message = _message, navController = navController, context, scope)
+        BottonMapa(_message = _message, navController = navController, context, scope,
+            onEvent,
+            onInsertCarPark
+        )
     }
 }
 
 @Composable
-fun BottonMapa(_message: CarPark, navController: NavController,     context: Context,
-               scope: CoroutineScope){
+fun BottonMapa(_message: CarPark, navController: NavController, context: Context,
+               scope: CoroutineScope,
+               onEvent: (Edit2Event) -> Unit,
+               onInsertCarPark: () -> Unit
+               ){
     Box(modifier = Modifier
         .height(50.dp)
         .fillMaxWidth(),
@@ -128,6 +148,7 @@ fun BottonMapa(_message: CarPark, navController: NavController,     context: Con
         val q2 =  userManager.quantityofinteractionsgps.collectAsState(initial = 0).value
         IconButton(
             onClick = {
+
                 navController.navigate(route = AppScreens.ThirdScreen.route
                         + "/${_message.name}"
                         + "/${_message.address}"
@@ -136,7 +157,16 @@ fun BottonMapa(_message: CarPark, navController: NavController,     context: Con
                         + "/${_message.lat}"
                         + "/${_message.lon}")
                 scope.launch {
+                    //Agregar datos.
+                    onEvent(Edit2Event.EnteredName("${_message.name}"))
+                    onEvent(Edit2Event.EnteredAddress("${_message.address}"))
+                    onEvent(Edit2Event.EnteredLat("${_message.lat}"))
+                    onEvent(Edit2Event.EnteredLon("${_message.lon}"))
+                    onEvent(Edit2Event.EnteredDateC("${_message.dateC}"))
+                    onEvent(Edit2Event.EnteredDateO("${_message.dateO}"))
+                    onInsertCarPark()
                     userManager.storeQuantityOfInteractionsGps(q2 + 1)
+
                 }
             }
         ) {

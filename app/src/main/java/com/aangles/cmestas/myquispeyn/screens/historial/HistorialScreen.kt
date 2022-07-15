@@ -31,21 +31,10 @@ fun HistorialScreen( navController: NavController,
             HomeTopBar()
         },
         floatingActionButtonPosition = FabPosition.Center,
-        floatingActionButton = {
-
-            HomeFab(
-                onFabClicked = { navController.navigate(AppScreens.EditCarParkScreen.route) },
-                )
-        },
         content = { innerPadding ->
             HomeContent(
                 modifier = Modifier.padding(innerPadding),
                 onDeleteCarPark = { viewModel.onEvent(CarParkEvent.DeleteCarPark(it)) },
-                onEditCarPark = {
-                    navController.navigate(
-                        route = AppScreens.EditCarParkScreen.passId(it)
-                    )
-                },
                 carParks = state.carParks
             )
         }
@@ -74,7 +63,6 @@ fun HomeTopBar(
 fun HomeContent(
     modifier: Modifier = Modifier,
     onDeleteCarPark: (carPark: CarParkDB) -> Unit,
-    onEditCarPark: (id: Int?) -> Unit,
     carParks: List<CarParkDB> = emptyList()
 ) {
     Surface(
@@ -85,7 +73,6 @@ fun HomeContent(
             items(carParks) { carPark ->
                 HistoryItem(
                     carPark = carPark,
-                    onEditCarPark = { onEditCarPark(carPark.id) },
                     onDeleteCarPark = { onDeleteCarPark(carPark) }
                 )
             }
@@ -94,19 +81,3 @@ fun HomeContent(
     }
 }
 
-@Composable
-fun HomeFab(
-    modifier: Modifier = Modifier,
-    onFabClicked: () -> Unit = {  }
-) {
-    FloatingActionButton(
-        onClick = onFabClicked,
-        modifier = modifier
-            .height(52.dp)
-            .widthIn(min = 52.dp),
-        elevation = FloatingActionButtonDefaults.elevation(10.dp,10.dp),
-        backgroundColor = MaterialTheme.colors.primary,
-    ) {
-        Icon(imageVector = Icons.Outlined.Add, contentDescription = stringResource(id = R.string.add_carPark))
-    }
-}

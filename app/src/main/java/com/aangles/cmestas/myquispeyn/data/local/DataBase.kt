@@ -7,7 +7,7 @@ import com.aangles.cmestas.myquispeyn.data.model.CarParkDB
 
 @Database(
     entities = [CarParkDB::class],
-    version = 2,
+    version = 3,
     exportSchema = false
 )
 

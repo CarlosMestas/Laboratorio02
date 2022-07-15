@@ -19,7 +19,6 @@ import com.aangles.cmestas.myquispeyn.ui.theme.Laboratorio02Theme
 fun HistoryItem(
     modifier: Modifier = Modifier,
     carPark: CarParkDB,
-    onEditCarPark: () -> Unit,
     onDeleteCarPark: () -> Unit
 ) {
     Card(
@@ -36,7 +35,7 @@ fun HistoryItem(
             Column(verticalArrangement = Arrangement.Center) {
                 Text(
                     text = carPark.name,
-                    style = MaterialTheme.typography.h6
+                    style = MaterialTheme.typography.subtitle2
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
@@ -56,13 +55,6 @@ fun HistoryItem(
 
             }
             Row {
-                IconButton(onClick = onEditCarPark) {
-                    Icon(
-                        imageVector = Icons.Filled.Edit,
-                        contentDescription = null,
-                        tint = Color.Green
-                    )
-                }
                 IconButton(onClick = onDeleteCarPark) {
                     Icon(
                         imageVector = Icons.Filled.Delete,
